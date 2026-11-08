@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Offers Collection
+    match /offers/{offerId} {
+      allow read: if true;
+      allow write: if isValidId(offerId);
+    }
+
+    // WhatsApp Groups Collection
+    match /groups/{groupId} {
+      allow read: if true;
+      allow write: if isValidId(groupId);
+    }
+
+    // Schedules Collection
+    match /schedules/{scheduleId} {
+      allow read: if true;
+      allow write: if isValidId(scheduleId);
+    }
+
+    // App Configuration Collection
+    match /config/{configId} {
+      allow read: if true;
+      allow write: if isValidId(configId);
+    }
+
+    // Dispatch Logs Collection
+    match /logs/{logId} {
+      allow read: if true;
+      allow write: if isValidId(logId);
+    }
+  }
+}

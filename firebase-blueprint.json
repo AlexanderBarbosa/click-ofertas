@@ -1,0 +1,124 @@
+{
+  "entities": {
+    "DealOffer": {
+      "title": "DealOffer",
+      "description": "Oferta de produto com desconto e link de afiliado",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "originalPrice": { "type": "number" },
+        "currentPrice": { "type": "number" },
+        "discountPercentage": { "type": "number" },
+        "couponCode": { "type": "string" },
+        "marketplace": { "type": "string" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "rawUrl": { "type": "string" },
+        "affiliateUrl": { "type": "string" },
+        "shortUrl": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "freeShipping": { "type": "boolean" },
+        "isLowestPrice": { "type": "boolean" },
+        "featured": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "currentPrice", "marketplace", "category"]
+    },
+    "WhatsAppGroup": {
+      "title": "WhatsAppGroup",
+      "description": "Grupo de WhatsApp para disparo de ofertas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "participantsCount": { "type": "number" },
+        "active": { "type": "boolean" },
+        "categoryFocus": { "type": "string" },
+        "antiSpamDelaySeconds": { "type": "number" },
+        "allowedHoursStart": { "type": "number" },
+        "allowedHoursEnd": { "type": "number" }
+      },
+      "required": ["id", "name", "active"]
+    },
+    "ScheduledDispatch": {
+      "title": "ScheduledDispatch",
+      "description": "Envio agendado de oferta na fila",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "offerId": { "type": "string" },
+        "scheduledTime": { "type": "string" },
+        "status": { "type": "string" },
+        "templateId": { "type": "string" }
+      },
+      "required": ["id", "offerId", "scheduledTime", "status"]
+    },
+    "AffiliateConfig": {
+      "title": "AffiliateConfig",
+      "description": "Configurações gerais de afiliados e automação",
+      "type": "object",
+      "properties": {
+        "amazonTag": { "type": "string" },
+        "shopeeTag": { "type": "string" },
+        "mercadoLivreTag": { "type": "string" },
+        "magaluTag": { "type": "string" },
+        "aliexpressTag": { "type": "string" },
+        "shortenerPrefix": { "type": "string" },
+        "autoPilotEnabled": { "type": "boolean" },
+        "autoPilotIntervalMinutes": { "type": "number" },
+        "autoPilotMinDiscount": { "type": "number" },
+        "whatsappConnected": { "type": "boolean" },
+        "whatsappPhoneNumber": { "type": "string" },
+        "whatsappInstanceName": { "type": "string" },
+        "evolutionApiUrl": { "type": "string" },
+        "evolutionApiKey": { "type": "string" },
+        "evolutionInstanceName": { "type": "string" },
+        "evolutionConnectionState": { "type": "string" },
+        "whatsappSenderNumber": { "type": "string" },
+        "whatsappPairingMethod": { "type": "string" },
+        "whatsappWebhookUrl": { "type": "string" }
+      }
+    },
+    "DispatchLog": {
+      "title": "DispatchLog",
+      "description": "Registro de disparo realizado",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "offerTitle": { "type": "string" },
+        "marketplace": { "type": "string" },
+        "groupName": { "type": "string" },
+        "groupId": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "status": { "type": "string" },
+        "clicksEstimated": { "type": "number" },
+        "messageText": { "type": "string" }
+      },
+      "required": ["id", "offerTitle", "groupId", "timestamp", "status"]
+    }
+  },
+  "firestore": {
+    "/offers/{offerId}": {
+      "schema": { "$ref": "#/entities/DealOffer" },
+      "description": "Coleção de ofertas monitoradas"
+    },
+    "/groups/{groupId}": {
+      "schema": { "$ref": "#/entities/WhatsAppGroup" },
+      "description": "Grupos de WhatsApp cadastrados"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": { "$ref": "#/entities/ScheduledDispatch" },
+      "description": "Fila de agendamentos"
+    },
+    "/config/{configId}": {
+      "schema": { "$ref": "#/entities/AffiliateConfig" },
+      "description": "Configurações de afiliados"
+    },
+    "/logs/{logId}": {
+      "schema": { "$ref": "#/entities/DispatchLog" },
+      "description": "Logs de disparos realizados"
+    }
+  }
+}

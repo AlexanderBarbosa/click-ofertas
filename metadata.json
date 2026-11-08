@@ -1,0 +1,6 @@
+{
+  "name": "AutoZap Ofertas - Automação para Grupos WhatsApp",
+  "description": "Plataforma profissional de monitoramento, conversão de afiliados e disparo automatizado de ofertas para grupos de WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
